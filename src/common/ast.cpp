@@ -60,7 +60,7 @@ AST::transform_node_iter(syntax_tree_node *n)
     {
         return transform_node_iter(n->children[0]);
     }
-    else if (_STR_EQ(n->name, "var-declaration"))
+    else if (_STR_EQ(n->name, "var-declaration")) // TODO:struct_specifier
     {
         auto node = new ASTVarDeclaration();
 
@@ -89,7 +89,7 @@ AST::transform_node_iter(syntax_tree_node *n)
         }
         return node;
     }
-    else if (_STR_EQ(n->name, "fun-declaration"))
+    else if (_STR_EQ(n->name, "fun-declaration")) // TODO:
     {
         auto node = new ASTFunDeclaration();
         if (_STR_EQ(n->children[0]->children[0]->name, "int"))
@@ -142,9 +142,13 @@ AST::transform_node_iter(syntax_tree_node *n)
     }
     else if (_STR_EQ(n->name, "struct_declaration"))
     {
-        ;
+        ; // TODO:
     }
-    else if (_STR_EQ(n->name, "param"))
+    else if (_STR_EQ(n->name, "var_def_list"))
+    {
+        ; // TODO:
+    }
+    else if (_STR_EQ(n->name, "param")) // TODO:
     {
         auto node = new ASTParam();
         if (_STR_EQ(n->children[0]->children[0]->name, "int"))
@@ -156,7 +160,7 @@ AST::transform_node_iter(syntax_tree_node *n)
             node->isarray = true;
         return node;
     }
-    else if (_STR_EQ(n->name, "compound-stmt"))
+    else if (_STR_EQ(n->name, "compound-stmt")) // TODO:
     {
         auto node = new ASTCompoundStmt();
         if (n->children[1]->children_num == 2)
@@ -204,11 +208,11 @@ AST::transform_node_iter(syntax_tree_node *n)
         }
         return node;
     }
-    else if (_STR_EQ(n->name, "statement"))
+    else if (_STR_EQ(n->name, "statement")) // TODO:
     {
         return transform_node_iter(n->children[0]);
     }
-    else if (_STR_EQ(n->name, "expression-stmt"))
+    else if (_STR_EQ(n->name, "expression-stmt")) // TODO:
     {
         auto node = new ASTExpressionStmt();
         if (n->children_num == 2)
@@ -222,7 +226,7 @@ AST::transform_node_iter(syntax_tree_node *n)
         }
         return node;
     }
-    else if (_STR_EQ(n->name, "selection-stmt"))
+    else if (_STR_EQ(n->name, "selection-stmt")) // TODO:
     {
         auto node = new ASTSelectionStmt();
 
@@ -251,7 +255,7 @@ AST::transform_node_iter(syntax_tree_node *n)
 
         return node;
     }
-    else if (_STR_EQ(n->name, "iteration-stmt"))
+    else if (_STR_EQ(n->name, "iteration-stmt")) // TODO:
     {
         auto node = new ASTIterationStmt();
 
@@ -269,7 +273,7 @@ AST::transform_node_iter(syntax_tree_node *n)
 
         return node;
     }
-    else if (_STR_EQ(n->name, "return-stmt"))
+    else if (_STR_EQ(n->name, "return-stmt")) // TODO:
     {
         auto node = new ASTReturnStmt();
         if (n->children_num == 3)
@@ -282,7 +286,7 @@ AST::transform_node_iter(syntax_tree_node *n)
         }
         return node;
     }
-    else if (_STR_EQ(n->name, "expression"))
+    else if (_STR_EQ(n->name, "expression")) // TODO:
     {
         // simple-expression
         if (n->children_num == 1)
@@ -304,7 +308,7 @@ AST::transform_node_iter(syntax_tree_node *n)
 
         return node;
     }
-    else if (_STR_EQ(n->name, "var"))
+    else if (_STR_EQ(n->name, "var")) // TODO:
     {
         auto node = new ASTVar();
         node->id = n->children[0]->name;
@@ -318,7 +322,7 @@ AST::transform_node_iter(syntax_tree_node *n)
         }
         return node;
     }
-    else if (_STR_EQ(n->name, "simple-expression"))
+    else if (_STR_EQ(n->name, "simple-expression")) // TODO:
     {
         auto node = new ASTSimpleExpression();
         auto expr_node_1 =
@@ -351,7 +355,7 @@ AST::transform_node_iter(syntax_tree_node *n)
         }
         return node;
     }
-    else if (_STR_EQ(n->name, "additive-expression"))
+    else if (_STR_EQ(n->name, "additive-expression")) // TODO:
     {
         auto node = new ASTAdditiveExpression();
         if (n->children_num == 3)
@@ -382,7 +386,7 @@ AST::transform_node_iter(syntax_tree_node *n)
         }
         return node;
     }
-    else if (_STR_EQ(n->name, "term"))
+    else if (_STR_EQ(n->name, "term")) // TODO:
     {
         auto node = new ASTTerm();
         if (n->children_num == 3)
@@ -413,7 +417,7 @@ AST::transform_node_iter(syntax_tree_node *n)
         }
         return node;
     }
-    else if (_STR_EQ(n->name, "factor"))
+    else if (_STR_EQ(n->name, "factor")) // TODO:
     {
         int i = 0;
         if (n->children_num == 3)
@@ -443,7 +447,7 @@ AST::transform_node_iter(syntax_tree_node *n)
             return num_node;
         }
     }
-    else if (_STR_EQ(n->name, "call"))
+    else if (_STR_EQ(n->name, "call")) // TODO:
     {
         auto node = new ASTCall();
         node->id = n->children[0]->name;

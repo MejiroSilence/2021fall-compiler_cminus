@@ -110,6 +110,7 @@ type_specifier
 
 struct_specifier
 :   STRUCT ID LBRACKETL var_def_list RBRACKETL {$$=node("struct_specifier", 5, $1, $2, $3, $4, $5);}
+|   STRUCT LBRACKETL var_def_list RBRACKETL {$$=node("struct_specifier", 4, $1, $2, $3, $4);}
 |   STRUCT ID {$$=node("struct_specifier", 2, $1, $2);}
 ;
 

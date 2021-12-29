@@ -7,6 +7,11 @@ struct a
         int a;
         int b;
     }d[5];
+    struct
+    {
+        float c;
+        int d;
+    }l[114514];
 };
 int main(void)
 {
