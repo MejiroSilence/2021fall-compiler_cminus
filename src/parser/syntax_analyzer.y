@@ -41,6 +41,7 @@ syntax_tree_node *node(const char *node_name, int children_num, ...);
 %token <node> INTEGER
 %token <node> FLOATPOINT
 %token <node> INT FLOAT VOID
+%token <node> STRUCT
 /* (left/right) bracket (small/medium/large) */
 %token <node> LBRACKETS RBRACKETS LBRACKETM RBRACKETM LBRACKETL RBRACKETL
 %token <node> IF ELSE WHILE
@@ -53,8 +54,8 @@ syntax_tree_node *node(const char *node_name, int children_num, ...);
 
 %type <node> program declaration_list
 %type <node> declaration
-%type <node> var_declaration fun_declaration
-%type <node> type_specifier
+%type <node> var_declaration fun_declaration struct_declaration var_def_list
+%type <node> type_specifier struct_specifier
 %type <node> param params param_list
 %type <node> local_declarations
 %type <node> statement_list statement
@@ -82,6 +83,16 @@ declaration_list
 declaration
 :   var_declaration {$$ = node("declaration", 1, $1);}
 |   fun_declaration {$$ = node("declaration", 1, $1);}
+|   struct_declaration {$$ = node("declaration", 1, $1);}
+;
+
+struct_declaration
+:   STRUCT ID LBRACKETL var_def_list RBRACKETL SEMICOLON {$$ = node("struct_declaration", 6, $1, $2, $3, $4, $5, $6);}
+;
+
+var_def_list 
+:   var_def_list var_declaration {$$ = node("var_def_list", 2, $1, $2);}
+|   var_declaration {$$ = node("var_def_list", 1, $1);}
 ;
 
 var_declaration
@@ -93,6 +104,13 @@ type_specifier
 :   INT {$$ = node("type-specifier", 1, $1);}
 |   FLOAT {$$ = node("type-specifier", 1, $1);}
 |   VOID {$$ = node("type-specifier", 1, $1);}
+|   struct_specifier {$$ = node("type-specifier", 1, $1);} 
+;
+
+struct_specifier
+:   STRUCT ID LBRACKETL var_def_list RBRACKETL {$$=node("struct_specifier", 5, $1, $2, $3, $4, $5);}
+|   STRUCT ID {$$=node("struct_specifier", 2, $1, $2);}
+|   ID {$$=node("struct_specifier", 1, $1);}
 ;
 
 fun_declaration

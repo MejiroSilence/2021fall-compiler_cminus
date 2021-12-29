@@ -30,6 +30,8 @@ void pass_node(char *text){
 "int" {pos_start = pos_end; pos_end += 3; pass_node(yytext); return INT;}
 "void" {pos_start = pos_end; pos_end += 4; pass_node(yytext); return VOID;}
 
+"struct" {pos_start = pos_end; pos_end += 6; pass_node(yytext); return STRUCT;}
+
 "if" {pos_start = pos_end; pos_end += 2; pass_node(yytext); return IF;}
 "else" {pos_start = pos_end; pos_end += 4; pass_node(yytext); return ELSE;}
 "while" {pos_start = pos_end; pos_end += 5; pass_node(yytext); return WHILE;}
