@@ -53,7 +53,7 @@ struct complexType
 {
     CminusType type;
     std::string name;
-    std::vector<CminusType> contained;
+    std::vector<complexType> contained;
 };
 
 class AST;
@@ -115,7 +115,7 @@ struct ASTProgram : ASTNode
 struct ASTDeclaration : ASTNode
 {
     virtual ~ASTDeclaration() = default;
-    CminusType type;
+    complexType type; // TODO:
     std::string id;
 };
 
@@ -157,7 +157,7 @@ struct ASTStructDeclaration : ASTDeclaration
 struct ASTParam : ASTNode
 {
     virtual void accept(ASTVisitor &) override final;
-    CminusType type;
+    complexType type;
     std::string id;
     // true if it is array param
     bool isarray;

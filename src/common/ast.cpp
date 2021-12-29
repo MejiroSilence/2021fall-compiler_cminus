@@ -64,10 +64,44 @@ AST::transform_node_iter(syntax_tree_node *n)
     {
         auto node = new ASTVarDeclaration();
 
-        if (_STR_EQ(n->children[0]->children[0]->name, "int"))
-            node->type = TYPE_INT;
-        else
-            node->type = TYPE_FLOAT;
+        if (n->children[0]->children[0]->children_num == 0)
+        {
+            if (_STR_EQ(n->children[0]->children[0]->name, "int"))
+                node->type.type = TYPE_INT;
+            else
+                node->type.type = TYPE_FLOAT;
+        }
+        else // struct
+        {
+            node->type.type = TYPE_STRUCT; // TODO:
+            auto speci = n->children[0]->children[0];
+            std::stack<syntax_tree_node *> temp;
+            if (speci->children_num == 5)
+            {
+                node->type.name = speci->children[1]->name;
+                auto list_ptr = speci->children[3];
+                while (list_ptr->children_num == 2)
+                {
+                    temp.push(list_ptr->children[1]);
+                    list_ptr = list_ptr->children[0];
+                }
+                temp.push(list_ptr->children[0]);
+                while (!temp.empty())
+                {
+                    auto top = temp.top();
+                    temp.pop();
+                    // FIXME:node->type.contained.push_back(transform_node_iter(top));//写个递归函数专门处理
+                }
+            }
+            else if (speci->children_num == 4)
+            {
+                ;
+            }
+            else // 2
+            {
+                node->type.name = speci->children[1]->name;
+            }
+        }
 
         if (n->children_num == 3)
         {
