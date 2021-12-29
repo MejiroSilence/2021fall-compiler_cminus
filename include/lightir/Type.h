@@ -10,6 +10,7 @@ class FunctionType;
 class ArrayType;
 class PointerType;
 class FloatType;
+class StructType;
 
 class Type
 {
@@ -68,7 +69,7 @@ public:
     static ArrayType *get_array_type(Type *contained, unsigned num_elements);
 
     // TODO:
-    static StructType *get_struct_type(Module *m, std::vector<Type *> contained, std::string = "");
+    static StructType *get_struct_type(Module *m, std::vector<Type *> contained, std::string);
 
     Type *get_pointer_element_type();
 

@@ -80,7 +80,7 @@ Type *Type::get_array_element_type()
         return nullptr;
 }
 
-StructType *Type::get_struct_type(Module *m, std::vector<Type *> contained, std::string name = "")
+StructType *Type::get_struct_type(Module *m, std::vector<Type *> contained, std::string name)
 {
     return new StructType(m, contained, name);
 }
