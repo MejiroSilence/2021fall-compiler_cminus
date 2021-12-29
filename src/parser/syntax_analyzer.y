@@ -51,6 +51,7 @@ syntax_tree_node *node(const char *node_name, int children_num, ...);
 %token <node> ASSIGN
 %token <node> RELOP ADDOP MULOP
 %token <node> UNDEFINED
+%token <node> DOT
 
 %type <node> program declaration_list
 %type <node> declaration
@@ -110,7 +111,6 @@ type_specifier
 struct_specifier
 :   STRUCT ID LBRACKETL var_def_list RBRACKETL {$$=node("struct_specifier", 5, $1, $2, $3, $4, $5);}
 |   STRUCT ID {$$=node("struct_specifier", 2, $1, $2);}
-|   ID {$$=node("struct_specifier", 1, $1);}
 ;
 
 fun_declaration
@@ -181,6 +181,7 @@ expression
 var
 :   ID {$$ = node("var", 1, $1);}
 |   ID LBRACKETM expression RBRACKETM {$$ = node("var", 4, $1, $2, $3, $4);}
+|   var DOT var {$$ = node("var", 3, $1, $2, $3);}
 ;
 
 simple_expression

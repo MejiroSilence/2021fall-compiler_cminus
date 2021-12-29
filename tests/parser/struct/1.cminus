@@ -6,5 +6,10 @@ struct a
     {
         int a;
         int b;
-    }d;
+    }d[5];
 };
+int main(void)
+{
+    struct a k[10];
+    k[5].d[3].a=1;
+}

@@ -52,7 +52,7 @@ void pass_node(char *text){
 "{" {pos_start = pos_end; pos_end++; pass_node(yytext); return LBRACKETL;}
 "}" {pos_start = pos_end; pos_end++; pass_node(yytext); return RBRACKETL;}
 
-
+\. {pos_start = pos_end; pos_end++; pass_node(yytext); return DOT;}
 \+|\- {pos_start = pos_end; pos_end++; pass_node(yytext); return ADDOP;}
 \*|\/ {pos_start = pos_end; pos_end++; pass_node(yytext); return MULOP;}
 "<"|"<="|">"|">="|"=="|"!=" {pos_start = pos_end; pos_end += strlen(yytext); pass_node(yytext); return RELOP;}
